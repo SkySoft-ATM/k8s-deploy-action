@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM alpine:3.11
+FROM docker:19.03.6
 
 RUN apk update \
   && apk upgrade \
