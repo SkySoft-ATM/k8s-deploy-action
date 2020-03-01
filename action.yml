@@ -1,0 +1,45 @@
+# action.yml
+name: 'Apply k8s templates'
+description: 'Apply k8s templates'
+inputs:
+  gcloud_token:
+    description: 'gcloud_token'
+    required: true
+  cluster_name:
+    description: 'cluster name'
+    default: 'sk-cluster-1'
+    required: true
+  zone:
+    description: 'GKE zone'
+    default: 'europe-west1-b'
+    required: true
+  project:
+    description: 'project'
+    default: 'ccs-skyserver'
+    required: true
+  image_name:
+    description: 'image name'
+    required: true
+  ref:
+    description: 'ref'
+    default: ${{ github.event.ref }}
+    required: true
+  sha:
+    description: 'sha'
+    default: ${{ github.sha }}
+    required: true
+  namespace:
+    description: 'namespace'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.gcloud_token }}
+    - ${{ inputs.cluster_name }}
+    - ${{ inputs.zone }}
+    - ${{ inputs.project }}
+    - ${{ inputs.image_name }}
+    - ${{ inputs.ref }}
+    - ${{ inputs.sha }}
+    - ${{ inputs.namespace }}
