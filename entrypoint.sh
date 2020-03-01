@@ -34,8 +34,8 @@ else
 fi
 
 export PROJECT_ID=$PROJECT_ID
-export IMAGE_NAME=IMAGE_NAME
-export BUILD_VERSION=BUILD_VERSION
+export IMAGE_NAME=$IMAGE_NAME
+export BUILD_VERSION=$BUILD_VERSION
 
 configure_kubectl(){
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
