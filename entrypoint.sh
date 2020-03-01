@@ -10,7 +10,7 @@ PROJECT_ID=$4
 IMAGE_NAME=$5
 GITHUB_REF=$6
 GITHUB_SHA=$7
-NAMESPACE=$8
+NAMESPACES=$8
 
 # No prompt for gcloud installation
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
@@ -22,7 +22,7 @@ if [ -z "${PROJECT_ID}" ]; then echo "::error ::Undefined PROJECT_ID" && exit 1;
 if [ -z "${IMAGE_NAME}" ]; then echo "::error ::Undefined IMAGE_NAME" && exit 1; fi
 if [ -z "${GITHUB_REF}" ]; then echo "::error ::Undefined GITHUB_REF" && exit 1; fi
 if [ -z "${GITHUB_SHA}" ]; then echo "::error ::Undefined GITHUB_SHA" && exit 1; fi
-if [ -z "${NAMESPACE}" ]; then echo "::error ::Undefined NAMESPACE" && exit 1; fi
+if [ -z "${NAMESPACES}" ]; then echo "::error ::Undefined NAMESPACES" && exit 1; fi
 
 BUILD_VERSION=${GITHUB_SHA}
 
@@ -67,18 +67,28 @@ init_cloud(){
     echo "Initialization successfully done"
 }
 
+deployNamespace(){
+  echo "Deploying on namespace [ $1 ]"
+
+  for file in k8s/$1/*.yml; do
+    echo dry-run [ $file ]
+    kubectl apply --namespace=$1 --dry-run -f $file
+    echo deployment [ $file ]
+    envsubst < $file | kubectl apply --namespace=$1 -f -
+  done
+}
+
 # ==============================================================================
 # Fire up
 # ==============================================================================
 
 init_cloud
 
+IFS=':'; arrNS=($NAMESPACES); unset IFS;
 
-echo "Active namespace [ $NAMESPACE ]"
-
-for file in k8s/$NAMESPACE/*.yml; do
-  echo dry-run [ $file ]
-  kubectl apply --namespace=$NAMESPACE --dry-run -f $file
-  echo deployment [ $file ]
-  envsubst < $file | kubectl apply --namespace=$NAMESPACE -f -
+for i in $arrNS
+do
+ deployNamespace $i
 done
+
+

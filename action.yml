@@ -19,6 +19,7 @@ inputs:
     required: true
   image_name:
     description: 'image name'
+    default: ${{ github.event.repository.name }}
     required: true
   ref:
     description: 'ref'
@@ -28,8 +29,8 @@ inputs:
     description: 'sha'
     default: ${{ github.sha }}
     required: true
-  namespace:
-    description: 'namespace'
+  namespaces:
+    description: 'namespaces, separated by a space'
     required: true
 runs:
   using: 'docker'
@@ -42,4 +43,4 @@ runs:
     - ${{ inputs.image_name }}
     - ${{ inputs.ref }}
     - ${{ inputs.sha }}
-    - ${{ inputs.namespace }}
+    - ${{ inputs.namespaces }}
