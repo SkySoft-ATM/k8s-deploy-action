@@ -7,7 +7,7 @@ This action deploys a docker image on a GKE cluster on the given namespaces
 ```yaml
 - uses: SkySoft-ATM/k8s-deploy-action@v9
   with:
-    # GCloud token
+    # GCloud token in base 64
     gcloud_token:  ${{ secrets.MY_GCLOUD_TOKEN_SECRET }}
     
     # Namespaces separated by a space
