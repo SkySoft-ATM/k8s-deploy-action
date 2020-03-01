@@ -50,10 +50,12 @@ init_cloud(){
         source ${HOME}/google-cloud-sdk/path.bash.inc
     fi
 
+    echo "${GCLOUD_TOKEN}" | base64 -d > client-secret.json
+
     gcloud auth activate-service-account --key-file client-secret.json
 
     echo "Authenticate Docker daemon to Google Cloud Registry"
-    echo "${GCLOUD_TOKEN}" | base64 -d | docker login -u _json_key --password-stdin https://eu.gcr.io
+    docker login -u _json_key --password-stdin https://eu.gcr.io < client-secret.json
 
     configure_kubectl
 
