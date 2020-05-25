@@ -26,7 +26,7 @@ This action deploys a docker image on a GKE cluster on the given namespaces
     zone: somewhere-in-the-cloud
     
     # GKE Project
-    # Default:  ccs-skyserver
+    # Default:  sk-private-registry/skysoft-atm
     project: myProject
 ```
 <!-- end usage -->
