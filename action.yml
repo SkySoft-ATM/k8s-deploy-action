@@ -15,7 +15,7 @@ inputs:
     required: true
   project:
     description: 'project'
-    default: 'sk-private-registry/skysoft-atm'
+    default: 'ccs-skyserver'
     required: true
   image_name:
     description: 'image name'
