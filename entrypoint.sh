@@ -29,6 +29,7 @@ BUILD_VERSION=${GITHUB_SHA}
 if [[ "$GITHUB_REF" == *"refs/tags/"* ]]; then
   echo "triggered by tag"
   BUILD_VERSION=${GITHUB_REF/refs\/tags\//}
+  echo $BUILD_VERSION
 else
     echo "triggered by push"
 fi
