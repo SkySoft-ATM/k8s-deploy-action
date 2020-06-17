@@ -26,8 +26,8 @@ if [ -z "${NAMESPACES}" ]; then echo "::error ::Undefined NAMESPACES" && exit 1;
 
 BUILD_VERSION=${GITHUB_SHA}
 
-echo BUILD_VERSION
-echo "$BUILD_VERSION"
+echo GITHUB_REF
+echo "$GITHUB_REF"
 
 if [[ "$GITHUB_REF" == *"refs/tags/"* ]]; then
   echo "triggered by tag"
@@ -41,8 +41,8 @@ else
     fi
 fi
 
-echo GITHUB_REF
-echo "$GITHUB_REF"
+echo BUILD_VERSION
+echo "$BUILD_VERSION"
 
 export PROJECT_ID=$PROJECT_ID
 export IMAGE_NAME=$IMAGE_NAME
