@@ -32,6 +32,7 @@ if [[ "$GITHUB_REF" == *"refs/tags/"* ]]; then
   echo $BUILD_VERSION
 else
     echo "triggered by push"
+    echo $GITHUB_REF
 fi
 
 export PROJECT_ID=$PROJECT_ID
